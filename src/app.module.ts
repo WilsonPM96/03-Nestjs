@@ -1,23 +1,42 @@
-import {MiddlewaresConsumer, Module, NestModule, RequestMethod} from '@nestjs/common';
-import { AppController } from './app.controller';
+import {MiddlewaresConsumer, Module, NestModule} from '@nestjs/common';
+import {AppController} from './app.controller';
 import {UsuarioController} from "./usuario.controller";
 import {ParametrosController} from "./parametros.controller";
 import {LogMiddleware} from "./log.middleware";
+import {InicioController} from "./inicio.controller";
+import {PreguntasFrecuentesController} from "./preguntasfrecuentes.controller";
+
+
 
 @Module({
-  imports: [],//otros modulos
-  controllers: [AppController, UsuarioController, ParametrosController], //Controladores
-  components: [],
+    imports: [ // OtrosModulos
+    ],
+    controllers: [ // Controladores
+        AppController,
+        UsuarioController,
+        ParametrosController,
+        InicioController,
+        PreguntasFrecuentesController
+    ],
+    components: [],
 })
 export class AppModule implements NestModule {
-    nombreAplicacion = 'EPN';
-    configure(consumer: MiddlewaresConsumer): void {
-        consumer.apply(LogMiddleware).with(this.nombreAplicacion, 1996).forRoutes(
-            UsuarioController,
-            AppController,
-            ParametrosController
-        );
+    nombreAplicacion = 'Deber Wilson Ramos EPN';
+
+    configure(consumer: MiddlewaresConsumer)
+        : void {
+        consumer
+            .apply(LogMiddleware)
+            .with(this.nombreAplicacion)
+            .forRoutes(
+                UsuarioController,
+                AppController,
+                ParametrosController,
+                InicioController,
+                PreguntasFrecuentesController
+            )
         //.apply(OtroMiddleware)
-        //.forRoutes("")
+        //.forRoutes(Otras rutas);
     }
+
 }
