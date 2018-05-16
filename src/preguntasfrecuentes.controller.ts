@@ -19,7 +19,7 @@ export class PreguntasFrecuentesController {
 
     @Get('preguntas')
     mostrarPreguntas(@Res () response){
-        return response.status(200).send(preguntasHtml)
+        return response.status(200).send(this.preguntas_frecuentes)
     }
 
 
